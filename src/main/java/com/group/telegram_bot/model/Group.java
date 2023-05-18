@@ -6,30 +6,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.UUID;
 
-@Getter
 @Setter
-@Table(schema = "public", name = "club")
+@Getter
+@Table(schema = "public", name = "group")
 @Entity
-public class Club {
+public class Group {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(name = "name")
     private String name;
-    @Column(name = "members")
-    private String members;
-    @Column(name = "directorName")
-    private String directorName;
+    @Column(name = "number")
+    private int number;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "groups")
+    private List<Professor> professors;
+
+    @OneToMany(mappedBy = "group")
     private List<Student> students;
 }

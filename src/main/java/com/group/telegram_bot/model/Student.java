@@ -2,40 +2,69 @@ package com.group.telegram_bot.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
-@Table(schema = "scs", name = "student")
+@Table(schema = "public", name = "student")
 @Getter
 @Setter
 public class Student {
     @Id
-    @Column(name = "stud_id")
-    String studentId;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+    @Column(name = "birthdate")
+    private LocalDateTime birthdate;
+    @Column(name = "fullname")
+    private String fullName;
+    @Column(name = "VUC")
+    private String VUC;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "telephone")
+    private String telephone;
+    @Column(name = "role")
+    private String role;
+    @Column(name = "platoon")
+    private String platoon;
+    @Column(name = "course")
+    private int course;
+    @Column(name = "institute")
+    private String institute;
+    @Column(name = "military_education")
+    private String militaryEducation;
 
-    @Column(name = "squad_id")
-    int squadId;
-    @Column(name = "surname")
-    String surname;
-    @Column(name = "name")
-    String name;
-    @Column(name = "patronymic")
-    String patronymic;
+    @ManyToOne
+    @JoinColumn(name="disciplinary_practice_id")
+    private DisciplinaryPractice disciplinaryPractice;
 
-    @Column(name = "dob", columnDefinition = "DATE")
-    LocalDateTime dob;
-    @Column(name = "addr")
-    String address;
-    @Column(name = "phone")
-    String phone;
+    @ManyToOne
+    @JoinColumn(name="application_id")
+    private Application application;
 
-    @Column(name = "uni_id")
-    int uniId;
-    @Column(name = "uni_group")
-    String uniGroup;
+    @OneToMany(mappedBy = "student")
+    private List<StudentFamily> studentFamilies;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Club> clubs;
+
+    @ManyToMany
+    private Set<Lessons> lessons;
+
+    @ManyToOne
+    private Group group;
 }

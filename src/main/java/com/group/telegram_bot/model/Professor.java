@@ -9,27 +9,22 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.UUID;
 
-@Getter
 @Setter
-@Table(schema = "public", name = "club")
+@Getter
+@Table(schema = "public", name = "professor")
 @Entity
-public class Club {
+public class Professor {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "members")
-    private String members;
-    @Column(name = "directorName")
-    private String directorName;
+    @Column(name = "fullname")
+    private String fullName;
 
     @ManyToMany
-    private List<Student> students;
+    private List<Group> groups;
 }

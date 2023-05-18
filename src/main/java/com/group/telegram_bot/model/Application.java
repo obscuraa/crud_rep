@@ -5,31 +5,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.UUID;
 
-@Getter
 @Setter
-@Table(schema = "public", name = "club")
+@Getter
+@Table(schema = "public", name = "application")
 @Entity
-public class Club {
+public class Application {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(name = "status")
+    private String status;
     @Column(name = "name")
     private String name;
-    @Column(name = "members")
-    private String members;
-    @Column(name = "directorName")
-    private String directorName;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "application")
     private List<Student> students;
 }
