@@ -8,7 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.UUID;
 @Getter
 @Table(schema = "public", name = "group")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Group {
     @Id
     @Column(name = "id")
@@ -33,4 +37,8 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     private List<Student> students;
+
+    public void addStudents(List<Student> students){
+        this.students.addAll(students);
+    };
 }

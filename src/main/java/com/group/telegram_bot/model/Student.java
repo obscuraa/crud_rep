@@ -10,7 +10,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -22,6 +24,8 @@ import java.util.UUID;
 @Table(schema = "public", name = "student")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
     @Id
     @Column(name = "id")
@@ -59,12 +63,20 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<StudentFamily> studentFamilies;
 
-    @ManyToMany(mappedBy = "students")
+    public void addStudentFamilies(List<StudentFamily> newStudentFamilies){
+        this.studentFamilies.addAll(newStudentFamilies);
+    };
+
+    @ManyToMany(mappedBy = "members")
     private List<Club> clubs;
 
     @ManyToMany
     private Set<Lessons> lessons;
 
+    public void addLessons(Set<Lessons> newLessons){
+        this.lessons.addAll(newLessons);
+    };
+
     @ManyToOne
-    private Group group;
+    private Group groups;
 }

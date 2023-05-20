@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -16,6 +18,8 @@ import java.util.UUID;
 @Setter
 @Table(schema = "public", name = "student_family")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentFamily {
     @Id
     @Column(name = "id")

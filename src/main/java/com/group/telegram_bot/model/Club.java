@@ -7,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +20,9 @@ import java.util.UUID;
 @Setter
 @Table(schema = "public", name = "club")
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Club {
     @Id
     @Column(name = "id")
@@ -25,11 +30,13 @@ public class Club {
     private UUID id;
     @Column(name = "name")
     private String name;
-    @Column(name = "members")
-    private String members;
     @Column(name = "directorName")
     private String directorName;
 
     @ManyToMany
-    private List<Student> students;
+    private List<Student> members;
+
+    public void addMembers(List<Student> newMembers){
+        this.members.addAll(newMembers);
+    };
 }

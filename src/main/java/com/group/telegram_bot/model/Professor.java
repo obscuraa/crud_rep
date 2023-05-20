@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.UUID;
 @Getter
 @Table(schema = "public", name = "professor")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Professor {
     @Id
     @Column(name = "id")
@@ -27,4 +31,8 @@ public class Professor {
 
     @ManyToMany
     private List<Group> groups;
+
+    public void addGroups(List<Group> newMembers){
+        this.groups.addAll(newMembers);
+    };
 }

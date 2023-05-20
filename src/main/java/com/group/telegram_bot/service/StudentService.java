@@ -1,64 +1,26 @@
 package com.group.telegram_bot.service;
 
-import com.group.telegram_bot.Repository.StudentRepository;
+import com.group.telegram_bot.dto.student.CreateStudentDto;
+import com.group.telegram_bot.dto.student.UpdateStudentDto;
+import com.group.telegram_bot.model.Professor;
 import com.group.telegram_bot.model.Student;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
-@Service
-@RequiredArgsConstructor
-public class StudentService {
-    private final StudentRepository studentRepository;
+public interface StudentService {
+    List<Student> getStudents();
 
-    public Student findStudent(String studentId){
-        return studentRepository.findById(studentId).orElseThrow();
-    }
+    Student findStudentById(UUID studentId);
 
-    public List<Student> getClients() {
-        return studentRepository.findAll();
-    }
+    Student addNewStudent(CreateStudentDto createStudentDto);
 
-    public Optional<Student> findDataById(String name){
-        return studentRepository.findById("24");
-    }
+    Boolean deleteStudent(UUID studentId);
 
-//    public Student addNewStudent(Student student) {
-//        Optional<Student> studentByOptional = studentRepository.findById(student.getStudentId());
-//        if (studentByOptional.isPresent()){
-//            throw new IllegalStateException("такой студент уже есть");
-//        }
-//        return studentRepository.save(student);
-//    }
+    Student updateStudent(UUID studentId, UpdateStudentDto updateStudentDto);
 
-    public void deleteStudent(String studentId) {
-        boolean exists = studentRepository.existsById(studentId);
-        if (!exists) {
-            throw new IllegalStateException("id студента " + studentId + " не существует");
-        }
-        studentRepository.deleteById(studentId);
-    }
+    Student addLessons(UUID studentId, List<UUID> lessonsIds);
 
-//    @Transactional
-//    public Student updateStudent(String studentId, String name, String surname) {
-//        Student student = studentRepository.findById(studentId).orElseThrow(
-//                () -> new IllegalStateException("client with id " + studentId + "does not exist"));
-//
-//        if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)) {
-//            student.setName(name);
-//        }
-//
-//        if (surname != null && surname.length() > 0 && !Objects.equals(student.getSurname(), surname)) {
-//            Optional<Student> studentOptional = studentRepository.findStudentBySurname(surname);
-//            if (studentOptional.isPresent()){
-//                throw new IllegalStateException("Такой студент уже есть");
-//            }
-//            student.setSurname(surname);
-//        }
-//        return student;
-//    }
+    Student addStudentFamily(UUID studentId, List<UUID> studentFamilyIds);
 }
