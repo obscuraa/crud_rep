@@ -1,12 +1,12 @@
 package com.group.telegram_bot.service.impl;
 
-import com.group.telegram_bot.exceptions.NotFoundDbObject;
-import com.group.telegram_bot.repository.GroupRepository;
 import com.group.telegram_bot.dto.group.CreateGroupDto;
 import com.group.telegram_bot.dto.group.UpdateGroupDto;
+import com.group.telegram_bot.exceptions.NotFoundDbObject;
 import com.group.telegram_bot.mapper.GroupMapper;
 import com.group.telegram_bot.model.Group;
 import com.group.telegram_bot.model.Student;
+import com.group.telegram_bot.repository.GroupRepository;
 import com.group.telegram_bot.service.GroupService;
 import com.group.telegram_bot.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +35,7 @@ public class GroupServiceImpl implements GroupService {
     public Group addNewGroup(CreateGroupDto createGroupDto) {
         Group group = groupMapper.createDtoToEntity(createGroupDto);
 
-        var result = groupRepository.save(group);
-        return result;
+        return groupRepository.save(group);
     }
 
     public Boolean deleteGroup(UUID groupId) {
@@ -54,8 +53,7 @@ public class GroupServiceImpl implements GroupService {
         }
         var group = optionalGroup.get();
         group.setName(updateGroupDto.getName() == null ? group.getName() : updateGroupDto.getName());
-        var result = groupRepository.save(group);
-        return result;
+        return groupRepository.save(group);
     }
 
     @Override

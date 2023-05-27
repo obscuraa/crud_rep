@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class ProfessorServiceImpl implements ProfessorService {
     private final ProfessorRepository professorRepository;
     private final ProfessorMapper professorMapper;
-    private final GroupService groupService;
 
     private final static String NOT_FOUND_MESSAGE = "Преподаватель [id = %s] не был обнаружен в базе данных";
 
@@ -60,14 +59,19 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Override
     public Professor addGroup(UUID professorId, UUID groupId) {
-        AtomicReference<Professor> result = null;
-        professorRepository.findById(professorId)
-            .ifPresent(professor -> {
-                var group = groupService.findGroupById(groupId);
-                //TODO: почему это не правильно?
-                professor.getGroups().add(group);
-                result.set(professorRepository.save(professor));
-            });
-        throw new NotFoundDbObject(String.format(NOT_FOUND_MESSAGE, professorId));
+        return null;
     }
+
+//    @Override
+//    public Professor addGroup(UUID professorId, UUID groupId) {
+//        AtomicReference<Professor> result = null;
+//        professorRepository.findById(professorId)
+//            .ifPresent(professor -> {
+//                var group = groupService.findGroupById(groupId);
+//                //TODO: почему это не правильно?
+//                professor.getGroups().add(group);
+//                result.set(professorRepository.save(professor));
+//            });
+//        throw new NotFoundDbObject(String.format(NOT_FOUND_MESSAGE, professorId));
+//    }
 }

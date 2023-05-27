@@ -1,13 +1,12 @@
 package com.group.telegram_bot.service.impl;
 
-import com.group.telegram_bot.exceptions.NotFoundDbObject;
-import com.group.telegram_bot.repository.StudentRepository;
 import com.group.telegram_bot.dto.student.CreateStudentDto;
 import com.group.telegram_bot.dto.student.UpdateStudentDto;
+import com.group.telegram_bot.exceptions.NotFoundDbObject;
 import com.group.telegram_bot.mapper.StudentMapper;
 import com.group.telegram_bot.model.Student;
 import com.group.telegram_bot.model.StudentFamily;
-import com.group.telegram_bot.service.LessonService;
+import com.group.telegram_bot.repository.StudentRepository;
 import com.group.telegram_bot.service.StudentFamilyService;
 import com.group.telegram_bot.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import java.util.UUID;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
-    private final LessonService lessonService;
     private final StudentFamilyService studentFamilyService;
 
     @Override
@@ -58,8 +56,7 @@ public class StudentServiceImpl implements StudentService {
         }
         var student = optionalStudent.get();
         student.setFullName(updateStudentDto.getFullName() == null ? student.getFullName() : updateStudentDto.getFullName());
-        var result = studentRepository.save(student);
-        return result;
+        return studentRepository.save(student);
     }
 
     @Override

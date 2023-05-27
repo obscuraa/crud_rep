@@ -1,21 +1,21 @@
 package com.group.telegram_bot.service.impl;
 
 import com.group.telegram_bot.dto.CreateLessonFromProfessorDto;
-import com.group.telegram_bot.exceptions.NotFoundDbObject;
-import com.group.telegram_bot.model.Student;
-import com.group.telegram_bot.repository.LessonsRepository;
 import com.group.telegram_bot.dto.lessons.CreateLessonsDto;
 import com.group.telegram_bot.dto.lessons.UpdateLessonsDto;
+import com.group.telegram_bot.exceptions.NotFoundDbObject;
 import com.group.telegram_bot.mapper.LessonsMapper;
 import com.group.telegram_bot.model.Lesson;
+import com.group.telegram_bot.model.Student;
+import com.group.telegram_bot.repository.LessonsRepository;
 import com.group.telegram_bot.service.GroupService;
 import com.group.telegram_bot.service.LessonService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,8 +40,7 @@ public class LessonServiceImpl implements LessonService {
     public Lesson addNewLessons(CreateLessonsDto createLessonsDto) {
         Lesson lesson = lessonsMapper.createDtoToEntity(createLessonsDto);
 
-        var result = lessonsRepository.save(lesson);
-        return result;
+        return lessonsRepository.save(lesson);
     }
 
     @Override
@@ -60,8 +59,7 @@ public class LessonServiceImpl implements LessonService {
             return null;
         }
         var lessons = optionalLessons.get();
-        var result = lessonsRepository.save(lessons);
-        return result;
+        return lessonsRepository.save(lessons);
     }
 
     @Override
@@ -75,7 +73,7 @@ public class LessonServiceImpl implements LessonService {
             lesson.setCreated(created);
             lesson.setProfessorId(createLessonFromProfessorDto.getProfessorId());
             lesson.setSubjectType(createLessonFromProfessorDto.getSubjectType());
-            lesson.setStudents(new HashSet<>(students));
+            //lesson.setStudents(new HashSet<>(students));
             lessonsRepository.save(lesson);
         }
     }

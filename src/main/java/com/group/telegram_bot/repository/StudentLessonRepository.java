@@ -15,7 +15,7 @@ public interface StudentLessonRepository extends JpaRepository<StudentLesson, UU
     // select * from student_lesson where student_id = {1} and lesson_id = {2}
     Optional<StudentLesson> findByStudentAndLesson(Student student, Lesson lesson);
     List<StudentLesson> findByStudentAndStartedAtBetween(Student student, LocalDateTime from, LocalDateTime to);
-    List<StudentLesson> findTop10ByStudentAndIsFinishedOrderByCreatedAt(Student student, Boolean isFinished);
+    List<StudentLesson> findTop10ByStudentAndIsFinishedOrderByStartedAt(Student student, Boolean isFinished);
     List<StudentLesson> findByStudent(Student student);
     List<StudentLesson> findByLesson(Lesson lesson);
 }

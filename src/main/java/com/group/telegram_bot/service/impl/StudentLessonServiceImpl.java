@@ -54,7 +54,7 @@ public class StudentLessonServiceImpl implements StudentLessonService {
     @Override
     public List<Lesson> getNearestLessons(UUID studentId) {
         var student = studentService.findStudentById(studentId);
-        return studentLessonRepository.findTop10ByStudentAndIsFinishedOrderByCreatedAt(student, false)
+        return studentLessonRepository.findTop10ByStudentAndIsFinishedOrderByStartedAt(student, false)
             .stream()
             .map(StudentLesson::getLesson)
             .collect(Collectors.toList());
