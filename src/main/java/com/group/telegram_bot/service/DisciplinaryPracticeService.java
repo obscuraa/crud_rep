@@ -1,13 +1,10 @@
 package com.group.telegram_bot.service;
 
-
 import com.group.telegram_bot.dto.disciplinaryPractice.CreateDisciplinaryPracticeDto;
 import com.group.telegram_bot.dto.disciplinaryPractice.UpdateDisciplinaryPracticeDto;
-import com.group.telegram_bot.model.Club;
 import com.group.telegram_bot.model.DisciplinaryPractice;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface DisciplinaryPracticeService {
@@ -17,9 +14,9 @@ public interface DisciplinaryPracticeService {
 
     DisciplinaryPractice addNewDisciplinaryPractice(CreateDisciplinaryPracticeDto createDisciplinaryPracticeDto);
 
-    Boolean deleteDisciplinaryPractice(UUID disciplinaryPracticeId);
+    void deleteDisciplinaryPractice(UUID disciplinaryPracticeId);
 
     DisciplinaryPractice updateDisciplinaryPractice(UUID disciplinaryPracticeId, UpdateDisciplinaryPracticeDto updateDisciplinaryPracticeDto);
 
-    DisciplinaryPractice addStudents(UUID disciplinaryPracticeId, Set<UUID> studentIds);
+    DisciplinaryPractice addStudent(UUID disciplinaryPracticeId, UUID studentId);
 }

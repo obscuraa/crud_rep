@@ -14,7 +14,6 @@ import java.util.UUID;
 @Setter
 @Builder
 public class CreateDisciplinaryPracticeDto {
-    private UUID id;
     private String cause;
     private String practiceType;
 }

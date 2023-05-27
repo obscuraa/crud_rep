@@ -1,10 +1,10 @@
 package com.group.telegram_bot.service.impl;
 
-import com.group.telegram_bot.Repository.GroupRepository;
+import com.group.telegram_bot.exceptions.NotFoundDbObject;
+import com.group.telegram_bot.repository.GroupRepository;
 import com.group.telegram_bot.dto.group.CreateGroupDto;
 import com.group.telegram_bot.dto.group.UpdateGroupDto;
 import com.group.telegram_bot.mapper.GroupMapper;
-import com.group.telegram_bot.model.Club;
 import com.group.telegram_bot.model.Group;
 import com.group.telegram_bot.model.Student;
 import com.group.telegram_bot.service.GroupService;
@@ -74,5 +74,19 @@ public class GroupServiceImpl implements GroupService {
             return groupRepository.save(group);
         }
         throw new IllegalArgumentException("group id " + groupId + " not found");
+    }
+
+    @Override
+    public void addStudent(UUID groupId, UUID studentId) {
+        var group = groupRepository.findById(groupId)
+            .orElseThrow(() -> new NotFoundDbObject("ADDSTUDENT: group not found"));
+        var student = studentService.findStudentById(studentId);
+        group.addStudents(List.of(student));
+    }
+
+    @Override
+    public Group findGroupByNumber(int groupNumber) {
+        return groupRepository.findByNumber(groupNumber)
+            .orElseThrow(() -> new NotFoundDbObject("Group with number " + groupNumber + " not found"));
     }
 }

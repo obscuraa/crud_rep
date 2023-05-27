@@ -51,32 +51,26 @@ public class Student {
     private String institute;
     @Column(name = "military_education")
     private String militaryEducation;
+    @Column(name = "telegram_id")
+    private String telegramId;
 
     @ManyToOne
     @JoinColumn(name="disciplinary_practice_id")
     private DisciplinaryPractice disciplinaryPractice;
 
-    @ManyToOne
-    @JoinColumn(name="application_id")
-    private Application application;
-
     @OneToMany(mappedBy = "student")
     private List<StudentFamily> studentFamilies;
-
-    public void addStudentFamilies(List<StudentFamily> newStudentFamilies){
-        this.studentFamilies.addAll(newStudentFamilies);
-    };
 
     @ManyToMany(mappedBy = "members")
     private List<Club> clubs;
 
-    @ManyToMany
-    private Set<Lessons> lessons;
-
-    public void addLessons(Set<Lessons> newLessons){
-        this.lessons.addAll(newLessons);
-    };
+    @OneToMany(mappedBy = "student")
+    private Set<StudentLesson> studentLessons;
 
     @ManyToOne
-    private Group groups;
+    private Group group;
+
+    public void addStudentFamilies(List<StudentFamily> newStudentFamilies){
+        this.studentFamilies.addAll(newStudentFamilies);
+    }
 }

@@ -1,13 +1,12 @@
 package com.group.telegram_bot.controller;
 
-import com.group.telegram_bot.dto.club.CreateClubDto;
-import com.group.telegram_bot.dto.club.FullClubDto;
-import com.group.telegram_bot.dto.club.UpdateClubDto;
 import com.group.telegram_bot.dto.professor.CreateProfessorDto;
 import com.group.telegram_bot.dto.professor.FullProfessorDto;
 import com.group.telegram_bot.dto.professor.UpdateProfessorDto;
 import com.group.telegram_bot.mapper.ProfessorMapper;
 import com.group.telegram_bot.service.ProfessorService;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/professor")
@@ -39,9 +34,10 @@ public class ProfessorController {
         return professorMapper.toFullDto(professorService.findProfessorById(professorId));
     }
 
-    @PutMapping(path = "/{professorId}/groups")
-    public FullProfessorDto addGroups(@PathVariable("professorId") UUID professorId, @RequestBody Set<UUID> groupIds){
-        return professorMapper.toFullDto(professorService.addGroups(professorId, groupIds));
+    @PutMapping(path = "/{professorId}/groups/{groupId}")
+    public FullProfessorDto addGroups(@PathVariable("professorId") UUID professorId,
+                                      @PathVariable("groupId") UUID groupId) {
+        return professorMapper.toFullDto(professorService.addGroup(professorId, groupId));
     }
 
     @PostMapping
@@ -49,15 +45,14 @@ public class ProfessorController {
         return professorMapper.toFullDto(professorService.addNewProfessor(professor));
     }
 
-    @DeleteMapping(path = "{professorId}")
-    public Boolean deleteProfessor(@PathVariable("professorId") UUID professorId) {
-        return professorService.deleteProfessor(professorId);
+    @DeleteMapping(path = "/{professorId}")
+    public void deleteProfessor(@PathVariable("professorId") UUID professorId) {
+        professorService.deleteProfessor(professorId);
     }
 
-    @PutMapping(path = "{professorId}")
-    public FullProfessorDto updateProfessor(
-            @PathVariable("professorId") UUID professorId,
-            @RequestBody UpdateProfessorDto updateProfessorDto) {
+    @PutMapping(path = "/{professorId}")
+    public FullProfessorDto updateProfessor(@PathVariable("professorId") UUID professorId,
+                                            @RequestBody UpdateProfessorDto updateProfessorDto) {
         return professorMapper.toFullDto(professorService.updateProfessor(professorId, updateProfessorDto));
     }
 }

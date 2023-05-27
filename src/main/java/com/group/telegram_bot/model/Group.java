@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,13 +33,13 @@ public class Group {
     @Column(name = "number")
     private int number;
 
-    @ManyToMany(mappedBy = "groups")
-    private List<Professor> professors;
-
     @OneToMany(mappedBy = "group")
     private List<Student> students;
 
-    public void addStudents(List<Student> students){
+    public void addStudents(List<Student> students) {
+        if (this.students == null) {
+            this.students = new ArrayList<>();
+        }
         this.students.addAll(students);
     };
 }

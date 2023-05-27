@@ -2,18 +2,14 @@ package com.group.telegram_bot.dto.professor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class CreateProfessorDto {
-    private UUID id;
+    private String telegramId;
     private String fullName;
 }

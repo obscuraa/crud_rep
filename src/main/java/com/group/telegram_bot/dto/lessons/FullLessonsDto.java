@@ -1,5 +1,6 @@
 package com.group.telegram_bot.dto.lessons;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,5 +16,7 @@ import java.util.UUID;
 @Builder
 public class FullLessonsDto {
     private UUID id;
-    private String mark;
+    private LocalDateTime created;
+    private UUID professorId;
+    private String subjectType;
 }

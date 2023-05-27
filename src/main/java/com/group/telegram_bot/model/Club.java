@@ -24,12 +24,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Club {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "directorName")
     private String directorName;
 

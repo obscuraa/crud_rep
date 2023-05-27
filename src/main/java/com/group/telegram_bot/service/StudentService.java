@@ -2,11 +2,10 @@ package com.group.telegram_bot.service;
 
 import com.group.telegram_bot.dto.student.CreateStudentDto;
 import com.group.telegram_bot.dto.student.UpdateStudentDto;
-import com.group.telegram_bot.model.Professor;
 import com.group.telegram_bot.model.Student;
 
+import com.group.telegram_bot.model.StudentFamily;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface StudentService {
@@ -22,5 +21,7 @@ public interface StudentService {
 
     Student addLessons(UUID studentId, List<UUID> lessonsIds);
 
-    Student addStudentFamily(UUID studentId, List<UUID> studentFamilyIds);
+    Student addStudentFamilyByIds(UUID studentId, List<UUID> studentFamilyIds);
+
+    void addStudentFamily(UUID studentId, StudentFamily studentFamily);
 }

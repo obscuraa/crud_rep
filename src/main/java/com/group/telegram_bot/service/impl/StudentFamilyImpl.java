@@ -1,6 +1,6 @@
 package com.group.telegram_bot.service.impl;
 
-import com.group.telegram_bot.Repository.StudentFamilyRepository;
+import com.group.telegram_bot.repository.StudentFamilyRepository;
 import com.group.telegram_bot.dto.studentFamily.CreateStudentFamilyDto;
 import com.group.telegram_bot.dto.studentFamily.UpdateStudentFamilyDto;
 import com.group.telegram_bot.mapper.StudentFamilyMapper;

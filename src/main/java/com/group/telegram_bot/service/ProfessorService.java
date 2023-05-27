@@ -15,9 +15,9 @@ public interface ProfessorService {
 
     Professor addNewProfessor(CreateProfessorDto createProfessorDto);
 
-    Boolean deleteProfessor(UUID professorId);
+    void deleteProfessor(UUID professorId);
 
     Professor updateProfessor(UUID professorId, UpdateProfessorDto updateProfessorDto);
 
-    Professor addGroups(UUID professorId, Set<UUID> groupIds);
+    Professor addGroup(UUID professorId, UUID groupId);
 }

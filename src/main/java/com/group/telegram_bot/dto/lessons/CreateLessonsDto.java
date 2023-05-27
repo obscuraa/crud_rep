@@ -14,6 +14,5 @@ import java.util.UUID;
 @Setter
 @Builder
 public class CreateLessonsDto {
-    private UUID id;
     private String mark;
 }

@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +23,22 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Lessons {
+public class Lesson {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(name = "mark")
-    private String mark;
 
-    @ManyToMany(mappedBy = "lessons")
-    private Set<Student> students;
+    @Column(name = "created")
+    private LocalDateTime created;
+
+    @Column(name = "professor_id")
+    private UUID professorId;
+
+    @Column(name = "subject_type")
+    private String subjectType;
+
+    @OneToMany(mappedBy = "lesson")
+    private Set<StudentLesson> studentLessons;
 }

@@ -20,4 +20,8 @@ public interface ClubService {
     Club updateClub(UUID clubId, UpdateClubDto updateClubDto);
 
     Club addMembers(UUID clubId, Set<UUID> memberIds);
+
+    Club addMember(UUID clubId, UUID memberId);
+
+    void deleteMember(UUID clubId, UUID memberId);
 }

@@ -19,5 +19,9 @@ public interface GroupService {
 
     Group updateGroup(UUID groupId, UpdateGroupDto updateGroupDto);
 
-    Group addStudents(UUID groupId, Set<UUID> studentId);
+    Group addStudents(UUID groupId, Set<UUID> studentIds);
+
+    void addStudent(UUID groupId, UUID studentId);
+
+    Group findGroupByNumber(int groupNumber);
 }
