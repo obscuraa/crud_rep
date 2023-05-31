@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -53,10 +52,6 @@ public class Student {
     private String militaryEducation;
     @Column(name = "telegram_id")
     private String telegramId;
-
-    @ManyToOne
-    @JoinColumn(name="disciplinary_practice_id")
-    private DisciplinaryPractice disciplinaryPractice;
 
     @OneToMany(mappedBy = "student")
     private List<StudentFamily> studentFamilies;
