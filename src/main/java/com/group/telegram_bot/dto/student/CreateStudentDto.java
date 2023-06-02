@@ -27,4 +27,5 @@ public class CreateStudentDto {
     private String institute;
     private String militaryEducation;
     private String telegramId;
+    private String email;
 }

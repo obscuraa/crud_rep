@@ -2,6 +2,7 @@ package com.group.telegram_bot.controller;
 
 import com.group.telegram_bot.dto.AttendanceDto;
 import com.group.telegram_bot.dto.lessons.FullLessonsDto;
+import com.group.telegram_bot.dto.student.AuthorizeStudentDto;
 import com.group.telegram_bot.dto.student.CreateStudentDto;
 import com.group.telegram_bot.dto.student.FullStudentDto;
 import com.group.telegram_bot.dto.studentFamily.CreateStudentFamilyDto;
@@ -12,10 +13,6 @@ import com.group.telegram_bot.service.GroupService;
 import com.group.telegram_bot.service.StudentFamilyService;
 import com.group.telegram_bot.service.StudentLessonService;
 import com.group.telegram_bot.service.StudentService;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/universal/student")
@@ -39,9 +41,14 @@ public class UniversalStudentController {
     private final StudentLessonService studentLessonService;
     private final LessonsMapper lessonsMapper;
 
+    @PostMapping(path = ":authorize")
+    public String authorizeStudent(@RequestBody AuthorizeStudentDto authorizeStudentDto) {
+        return studentService.authorizeStudent(authorizeStudentDto);
+    }
+
     @PostMapping(path = ":createAcc")
-    public FullStudentDto createdStudentAccount(CreateStudentDto createStudentDto) {
-        return studentMapper.toFullDto(studentService.addNewStudent(createStudentDto));
+    public FullStudentDto createdStudentAccount(CreateStudentDto createStudentDto, HttpServletResponse response) {
+        return studentMapper.toFullDto(studentService.addNewStudent(createStudentDto, response));
     }
 
     @PutMapping(path = ":addFamilyMember")

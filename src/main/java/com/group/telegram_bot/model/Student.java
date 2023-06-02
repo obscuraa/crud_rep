@@ -1,19 +1,19 @@
 package com.group.telegram_bot.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -52,6 +52,10 @@ public class Student {
     private String militaryEducation;
     @Column(name = "telegram_id")
     private String telegramId;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "password")
+    private String password;
 
     @OneToMany(mappedBy = "student")
     private List<StudentFamily> studentFamilies;
