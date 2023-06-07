@@ -6,4 +6,6 @@
 
     <include file="2023-05-19-init/changelog.xml" relativeToChangelogFile="true"/>
     <include file="2023-05-19-remove-student-id/changelog.xml" relativeToChangelogFile="true"/>
+    <include file="2023-05-19-update-student-lesson/changelog.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-02-add-email-and-password-to-users/changelog.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

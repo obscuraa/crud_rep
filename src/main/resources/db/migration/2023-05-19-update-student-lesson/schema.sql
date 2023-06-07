@@ -1,11 +1,12 @@
-ALTER TABLE public.lessons ADD created timestamp,
-ALTER TABLE public.lessons ADD subject_type text NULL,
-ALTER TABLE public.lessons ADD professor_id uuid NULL;
+ALTER TABLE public.lessons ADD COLUMN created timestamp NULL;
+ALTER TABLE public.lessons ADD COLUMN subject_type text NULL;
+ALTER TABLE public.lessons ADD COLUMN professor_id uuid NULL;
 ALTER TABLE public.lessons ADD CONSTRAINT professor_lesson_fkey FOREIGN KEY (id) REFERENCES public.professor(id);
 
-ALTER TABLE public.professor ADD telegram_id text NULL;
-ALTER TABLE public.student ADD telegram_id text NULL;
+ALTER TABLE public.professor ADD COLUMN telegram_id text NULL;
+ALTER TABLE public.student ADD COLUMN telegram_id text NULL;
 
+DROP TABLE IF EXISTS public.student_lesson;
 CREATE TABLE public.student_lesson (
 	id uuid NOT NULL DEFAULT uuid_generate_v4(),
 	cause text NULL,
@@ -17,9 +18,10 @@ CREATE TABLE public.student_lesson (
 	lesson_id uuid NULL,
 	CONSTRAINT student_lesson_pkey PRIMARY KEY (id),
 	CONSTRAINT student_lesson_fkey1 FOREIGN KEY (student_id) REFERENCES public.student(id),
-	CONSTRAINT student_lesson_fkey2 FOREIGN KEY (lessons_id) REFERENCES public.lessons(id)
+	CONSTRAINT student_lesson_fkey2 FOREIGN KEY (lesson_id) REFERENCES public.lessons(id)
 );
 
+DROP TABLE IF EXISTS public.club_members;
 CREATE TABLE public.club_members(
 	clubs_id uuid NULL,
 	members_id uuid NULL,
