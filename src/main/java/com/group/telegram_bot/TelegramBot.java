@@ -6,7 +6,12 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
@@ -15,34 +20,44 @@ public class TelegramBot extends TelegramLongPollingBot {
     BotConfig botConfig;
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if(update.hasMessage() && update.getMessage().hasText()){
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
 
-            SendMessage message = new SendMessage();
+            if(messageText.equalsIgnoreCase("/start")){
+                SendMessage message = new SendMessage();
+                message.setChatId(chatId);
+                message.setText("Добро пожаловать. Вы студент или преподаватель?");
+                ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+                keyboardMarkup.getResizeKeyboard();
 
-            switch(messageText){
-                case "/start":
-                    message.setChatId(chatId);
-                    message.setText("Добро пожаловать. Вы студент или преподаватель?");
-                    break;
-                case "студент":
-                    message.setChatId(chatId);
-                    message.setText("Добро пожаловать. Вы вошли как студент.");
-                    break;
-                case "преподвавтель":
-                    message.setChatId(chatId);
-                    message.setText("Добро пожаловать. Вы вошли как преподвавтель.");
-                    break;
+                List<KeyboardRow> keyboard = new ArrayList<>();
+                KeyboardRow row = new KeyboardRow();
+                row.add("студент");
+                row.add("колонка2");
+                keyboard.add(row);
+
+                row = new KeyboardRow();
+                row.add("преподаватель");
+                keyboard.add(row);
+
+                keyboardMarkup.setKeyboard(keyboard);
+                message.setReplyMarkup(keyboardMarkup);
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
-
-            //message.setChatId(chatId);
-            //message.setText(messageText);
-
-            try {
-                execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+            if(messageText.equalsIgnoreCase("студент")){
+                SendMessage message = new SendMessage();
+                message.setChatId(chatId);
+                message.setText("Добро пожаловать. Вы вошли как студент.");
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
