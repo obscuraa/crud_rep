@@ -10,34 +10,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Setter
 @Getter
-@Table(schema = "public", name = "group")
+@Setter
+@Table(schema = "public", name = "platoon")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Group {
+public class Platoon {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(name = "name")
     private String name;
-    @Column(name = "number")
-    private int number;
     @Column(name = "commander")
+    @OneToOne
     private Student commander;
+    @Column(name = "size")
+    private int size;
 
-    @OneToMany(mappedBy = "group")
-    private List<Student> students;
+    @OneToMany(mappedBy = "platoon", cascade = CascadeType.ALL)
+    private List<Group> groups = new ArrayList<>();
 
-    public void addStudents(List<Student> students) {
-        if (this.students == null) {
-            this.students = new ArrayList<>();
+    public void addGroups(List<Group> groups) {
+        if (this.groups == null) {
+            this.groups = new ArrayList<>();
         }
-        this.students.addAll(students);
+        this.groups.addAll(groups);
     }
-
-    @ManyToOne
-    private Platoon platoon;
 }

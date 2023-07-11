@@ -24,4 +24,6 @@ public interface GroupService {
     void addStudent(UUID groupId, UUID studentId);
 
     Group findGroupByNumber(int groupNumber);
+
+    Group updateCommander(UUID groupId, UUID studentId);
 }

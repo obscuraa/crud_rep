@@ -64,8 +64,8 @@ public class GroupServiceImpl implements GroupService {
             Group group = optionalGroup.get();
 
             var groups = new ArrayList<Student>();
-            for (UUID groupIds : studentIds) {
-                Student member = studentService.findStudentById(groupId);
+            for (UUID studentId : studentIds) {
+                Student member = studentService.findStudentById(studentId);
                 groups.add(member);
             }
             group.addStudents(groups);
@@ -86,5 +86,14 @@ public class GroupServiceImpl implements GroupService {
     public Group findGroupByNumber(int groupNumber) {
         return groupRepository.findByNumber(groupNumber)
             .orElseThrow(() -> new NotFoundDbObject("Group with number " + groupNumber + " not found"));
+    }
+
+    @Override
+    public Group updateCommander(UUID groupId, UUID studentId) {
+        var group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new NotFoundDbObject("ADDSTUDENT: group not found"));
+        var student = studentService.findStudentById(studentId);
+        group.setCommander(student);
+        return groupRepository.save(group);
     }
 }
