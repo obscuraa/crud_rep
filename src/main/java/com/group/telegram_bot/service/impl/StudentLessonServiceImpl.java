@@ -1,7 +1,6 @@
 package com.group.telegram_bot.service.impl;
 
 import com.group.telegram_bot.dto.AttendanceDto;
-import com.group.telegram_bot.dto.lessons.FullLessonsDto;
 import com.group.telegram_bot.exceptions.NotFoundDbObject;
 import com.group.telegram_bot.model.Lesson;
 import com.group.telegram_bot.model.Student;
@@ -10,6 +9,9 @@ import com.group.telegram_bot.repository.StudentLessonRepository;
 import com.group.telegram_bot.service.LessonService;
 import com.group.telegram_bot.service.StudentLessonService;
 import com.group.telegram_bot.service.StudentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -97,7 +97,7 @@ public class StudentLessonServiceImpl implements StudentLessonService {
             result.add(AttendanceDto.builder()
                     .subjectType(subjectType)
                     .absoluteAttendance((float) allAttendance.getOrDefault(subjectType, 0) / subject.getValue())
-                    .relativeAttendance((float) allAttendance.getOrDefault(subjectType, 0) / allWithoutFuture.getOrDefault(subjectType, 1000000))
+                    .relativeAttendance((float) allWithoutFuture.getOrDefault(subjectType, 1000000)/ allAttendance.getOrDefault(subjectType, 0))
                 .build());
         }
         return result;
@@ -149,5 +149,4 @@ public class StudentLessonServiceImpl implements StudentLessonService {
         studentLesson.setIsAbsent(true);
         studentLessonRepository.save(studentLesson);
     }
-
 }

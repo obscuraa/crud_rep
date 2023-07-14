@@ -37,7 +37,7 @@ public class PlatoonServiceImpl implements PlatoonService {
 
     @Override
     public void addGroupToPlatoon(UUID platoonId, Group group) {
-        var platoon = platoonRepository.findById(platoonId).orElseThrow(() -> new RuntimeException("I'm faggot"));
+        var platoon = platoonRepository.findById(platoonId).orElseThrow(() -> new RuntimeException("group not found"));
         platoon.getGroups().add(group);
         platoonRepository.save(platoon);
     }
@@ -50,7 +50,7 @@ public class PlatoonServiceImpl implements PlatoonService {
 
     @Override
     public Platoon updatePlatoon(UUID id, UpdatePlatoonDto updatePlatoonDto) {
-        var platoon = platoonRepository.findById(id).orElseThrow(() -> new RuntimeException("Mega faggot robo bit"));
+        var platoon = platoonRepository.findById(id).orElseThrow(() -> new RuntimeException("platoon not found"));
         platoonMapper.updateEntityFromDto(platoon, updatePlatoonDto);
         return platoonRepository.save(platoon);
     }

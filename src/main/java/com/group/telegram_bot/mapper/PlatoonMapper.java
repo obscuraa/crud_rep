@@ -7,6 +7,8 @@ import com.group.telegram_bot.model.Platoon;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface PlatoonMapper {
     FullPlatoonDto toFullDto(Platoon platoon);
@@ -14,4 +16,6 @@ public interface PlatoonMapper {
     Platoon createDtoToEntity(CreatePlatoonDto createPlatoonDto);
 
     Platoon updateEntityFromDto(@MappingTarget Platoon platoon, UpdatePlatoonDto updatePlatoonDto);
+
+    List<FullPlatoonDto> toListPlatoonDto(List<Platoon> platoons);
 }

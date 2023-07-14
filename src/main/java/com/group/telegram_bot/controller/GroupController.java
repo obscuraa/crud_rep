@@ -20,7 +20,7 @@ public class GroupController {
     private final GroupMapper groupMapper;
     @GetMapping
     public List<FullGroupDto> getGroups() {
-        return groupMapper.toListClubDto(groupService.getGroups());
+        return groupMapper.toListGroupDto(groupService.getGroups());
     }
 
     @GetMapping(path = "/{groupId}")

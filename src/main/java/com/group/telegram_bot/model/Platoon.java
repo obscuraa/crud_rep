@@ -23,11 +23,11 @@ public class Platoon {
     private UUID id;
     @Column(name = "name")
     private String name;
-    @Column(name = "commander")
     @OneToOne
+    @JoinColumn(name="commander_id")
     private Student commander;
     @Column(name = "size")
-    private int size;
+    private int amount;
 
     @OneToMany(mappedBy = "platoon", cascade = CascadeType.ALL)
     private List<Group> groups = new ArrayList<>();

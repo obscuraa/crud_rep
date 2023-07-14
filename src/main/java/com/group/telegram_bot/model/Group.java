@@ -25,7 +25,8 @@ public class Group {
     private String name;
     @Column(name = "number")
     private int number;
-    @Column(name = "commander")
+    @OneToOne
+    @JoinColumn(name="commander_id")
     private Student commander;
 
     @OneToMany(mappedBy = "group")

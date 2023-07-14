@@ -72,4 +72,5 @@ public class Student {
     public void addStudentFamilies(List<StudentFamily> newStudentFamilies){
         this.studentFamilies.addAll(newStudentFamilies);
     }
+    
 }

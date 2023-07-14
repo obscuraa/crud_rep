@@ -15,5 +15,5 @@ public interface GroupMapper {
 
     Group createDtoToEntity(CreateGroupDto createGroupDto);
 
-    List<FullGroupDto> toListClubDto(List<Group> groups);
+    List<FullGroupDto> toListGroupDto(List<Group> groups);
 }
