@@ -7,9 +7,13 @@ import com.group.telegram_bot.exceptions.NotFoundDbObject;
 import com.group.telegram_bot.mapper.LessonsMapper;
 import com.group.telegram_bot.model.Lesson;
 import com.group.telegram_bot.model.Student;
+import com.group.telegram_bot.model.StudentLesson;
 import com.group.telegram_bot.repository.LessonsRepository;
 import com.group.telegram_bot.service.GroupService;
 import com.group.telegram_bot.service.LessonService;
+import com.group.telegram_bot.service.ProfessorService;
+import com.group.telegram_bot.service.StudentLessonService;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,8 @@ public class LessonServiceImpl implements LessonService {
     private final LessonsMapper lessonsMapper;
     private final LessonsRepository lessonsRepository;
     private final GroupService groupService;
+    private final ProfessorService professorService;
+    private final StudentLessonService studentLessonService;
 
     @Override
     public List<Lesson> getLessons() {
@@ -64,17 +70,21 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public void createLessons(CreateLessonFromProfessorDto createLessonFromProfessorDto) {
-        var students = new ArrayList<Student>();
-        for (int groupNumber : createLessonFromProfessorDto.getGroupsNumber()) {
-            students.addAll(groupService.findGroupByNumber(groupNumber).getStudents());
-        }
+        Lesson result = null;
+
         for (LocalDateTime created : createLessonFromProfessorDto.getSchedule()) {
             var lesson = new Lesson();
             lesson.setCreated(created);
-            lesson.setProfessorId(createLessonFromProfessorDto.getProfessorId());
+            lesson.setProfessor(professorService.findProfessorById(createLessonFromProfessorDto.getProfessorId()));
             lesson.setSubjectType(createLessonFromProfessorDto.getSubjectType());
-            //lesson.setStudents(new HashSet<>(students));
-            lessonsRepository.save(lesson);
+            result = lessonsRepository.save(lesson);
+        }
+        for (int groupNumber : createLessonFromProfessorDto.getGroupsNumber()) {
+            var studentIds = groupService.findGroupByNumber(groupNumber)
+                .getStudents().stream().map(Student::getId).collect(Collectors.toList());
+            for (UUID studentId : studentIds) {
+                studentLessonService.addStudentLesson(studentId, result.getId());
+            }
         }
     }
 

@@ -1,5 +1,8 @@
 package com.group.telegram_bot.model;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +37,14 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     private List<Student> students;
+
+    @OneToOne
+    @JoinColumn(columnDefinition = "commander_id")
+    private Student commander;
+
+    @ManyToOne
+    @JoinColumn(name = "platoon_id")
+    private Platoon platoon;
 
     public void addStudents(List<Student> students) {
         if (this.students == null) {

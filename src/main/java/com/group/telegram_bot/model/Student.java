@@ -42,8 +42,6 @@ public class Student {
     private String telephone;
     @Column(name = "role")
     private String role;
-    @Column(name = "platoon")
-    private String platoon;
     @Column(name = "course")
     private int course;
     @Column(name = "institute")

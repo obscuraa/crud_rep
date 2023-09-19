@@ -29,7 +29,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public Group findGroupById(UUID groupId) {
-        return groupRepository.findById(groupId).orElse(null);
+        return groupRepository
+            .findById(groupId)
+            .orElseThrow(() -> new NotFoundDbObject("Group not found. Id = " + groupId));
     }
 
     public Group addNewGroup(CreateGroupDto createGroupDto) {

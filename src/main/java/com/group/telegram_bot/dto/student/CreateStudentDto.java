@@ -21,7 +21,7 @@ public class CreateStudentDto {
     private String VUC;
     private String address;
     private String telephone;
-    private String role;
+    private StudentRole role;
     private String platoon;
     private int course;
     private String institute;

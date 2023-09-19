@@ -1,20 +1,21 @@
 package com.group.telegram_bot.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -31,8 +32,9 @@ public class Lesson {
     @Column(name = "created")
     private LocalDateTime created;
 
-    @Column(name = "professor_id")
-    private UUID professorId;
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
     @Column(name = "subject_type")
     private String subjectType;

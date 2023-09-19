@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+
 import static com.group.telegram_bot.config.ErrorMessages.USER_NOT_FOUND_BY_EMAIL;
 
 @Service
@@ -29,6 +30,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentFamilyService studentFamilyService;
     private final TokenService tokenService;
 
+
     @Override
     public List<Student> getStudents() {
         return studentRepository.findAll();
@@ -36,13 +38,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findStudentById(UUID studentId) {
-        return studentRepository.findById(studentId).orElse(null);
+        return studentRepository.findById(studentId)
+            .orElseThrow(() -> new NotFoundDbObject("Student not found. Id = " + studentId));
     }
 
     @Override
     public Student addNewStudent(CreateStudentDto createStudentDto, HttpServletResponse response) {
         Student student = studentMapper.createDtoToEntity(createStudentDto);
-        response.addHeader("Authorization", generateJwt(createStudentDto.getEmail(), createStudentDto.getRole()));
+        response.addHeader("Authorization", generateJwt(createStudentDto.getEmail(), createStudentDto.getRole().name()));
         return studentRepository.save(student);
     }
 
